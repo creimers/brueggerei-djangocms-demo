@@ -1,0 +1,35 @@
+volumes:
+  postgres_data: {}
+  postgres_backup: {}
+
+
+services:
+  django:
+    build:
+      context: .
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - memcached
+    volumes:
+      - ./website:/app/website
+      - ./media:/app/media
+      # - ./static:/srv/static
+      # - ./collected_static:/srv/collected_static
+      # - ./pytest.ini:/srv/pytest.ini
+    command: uv run python manage.py runserver 0.0.0.0:8000
+
+  postgres:
+    image: postgres:16
+    env_file: .env
+    volumes:
+      - ./backups/:/db_backups/
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backup:/backups
+  
+  memcached:
+    env_file: .env
+    image: memcached
+    restart: always

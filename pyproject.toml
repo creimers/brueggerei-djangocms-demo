@@ -1,0 +1,17 @@
+[project]
+name = "djangocms-demo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django-cms>=5.0.5",
+    "django-filer>=3.4.1",
+    "django-fsm<3",
+    "djangocms-alias>=3.0.2",
+    "djangocms-frontend>=2.0.0a1",
+    "djangocms-simple-admin-style>=2.0.0",
+    "djangocms-text>=0.9.3",
+    "djangocms-versioning>=2.5.0",
+    "psycopg2-binary>=2.9.11",
+]
