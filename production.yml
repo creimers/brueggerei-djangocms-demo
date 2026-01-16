@@ -1,6 +1,8 @@
 services:
   web:
-    context: .
+    build:
+      context: .
+    env_file: .env
     networks:
       - web
     labels:
@@ -14,6 +16,26 @@ services:
       test: test ! -f /tmp/drain
       interval: 5s
       retries: 1
+    depends_on:
+      - postgres
+      - memcached
+
+  postgres:
+    image: postgres:16
+    env_file: .env
+    volumes:
+      - ./backups/:/db_backups/
+      - postgres_data:/var/lib/postgresql/data
+      - postgres_backup:/backups
+  
+  memcached:
+    env_file: .env
+    image: memcached
+    restart: always
+
+volumes:
+  postgres_data: {}
+  postgres_backup: {}
 
 networks:
   web:
