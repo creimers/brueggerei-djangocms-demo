@@ -39,3 +39,5 @@ AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "")
 CSRF_TRUSTED_ORIGINS = [
     "https://brueggerei.superservice-international.com",
 ]
+
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
