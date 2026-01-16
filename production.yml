@@ -1,0 +1,20 @@
+services:
+  web:
+    context: .
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app1.rule=Host(`brueggerei.superservice-international.com`)"
+      - "traefik.http.services.app1.loadbalancer.server.port=8000"
+      - "traefik.http.routers.app1.entrypoints=websecure"
+      - "traefik.http.routers.app1.tls.certresolver=letsencrypt"
+      - "docker-rollout.pre-stop-hook=touch /tmp/drain && sleep 10"
+    healthcheck:
+      test: test ! -f /tmp/drain
+      interval: 5s
+      retries: 1
+
+networks:
+  web:
+    external: true
