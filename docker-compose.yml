@@ -14,8 +14,9 @@ services:
       - postgres
       - memcached
     volumes:
-      - ./website:/app/website
-      - ./media:/app/media
+      # - ./website:/app/website
+      # - ./media:/app/media
+      - .:/app
       # - ./static:/srv/static
       # - ./collected_static:/srv/collected_static
       # - ./pytest.ini:/srv/pytest.ini

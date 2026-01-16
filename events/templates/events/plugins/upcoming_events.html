@@ -1,0 +1,30 @@
+{% load easy_thumbnails_tags %}
+
+<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {% for event in events %}
+    <div class="bg-white rounded-lg shadow p-4">
+        {% if event.image %}
+        <img src="{% thumbnail event.image 400x200 crop %}" alt="{{ event.title }}" class="w-full h-32 object-cover rounded mb-3">
+        {% endif %}
+
+        <h3 class="font-semibold text-lg mb-1">{{ event.title }}</h3>
+
+        <div class="text-sm text-gray-600 mb-1">
+            {% with next_date=event.get_next_occurrence %}
+            {% if next_date %}
+            <p>{{ next_date|date:"l, j F" }}</p>
+            {% endif %}
+            {% endwith %}
+            <p>{{ event.start_time|time:"H:i" }} - {{ event.end_time|time:"H:i" }}</p>
+        </div>
+
+        <p class="text-sm text-gray-500">{{ event.location }}</p>
+
+        {% if event.short_description %}
+        <p class="text-sm text-gray-700 mt-2 line-clamp-2">{{ event.short_description }}</p>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p class="text-gray-600 col-span-full">No upcoming events.</p>
+    {% endfor %}
+</div>

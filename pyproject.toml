@@ -8,6 +8,8 @@ dependencies = [
     "django-cms>=5.0.5",
     "django-filer>=3.4.1",
     "django-fsm<3",
+    "django-recurrence>=1.14",
+    "django-tailwind[cookiecutter,honcho,reload]>=4.4.2",
     "djangocms-alias>=3.0.2",
     "djangocms-frontend>=2.0.0a1",
     "djangocms-simple-admin-style>=2.0.0",

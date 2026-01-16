@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load easy_thumbnails_tags %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">Upcoming Events</h1>
+
+    {% if events %}
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for event in events %}
+        <a href="{% url 'events:event_detail' slug=event.slug %}" class="block bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+            {% if event.image %}
+            <img src="{% thumbnail event.image 400x200 crop %}" alt="{{ event.title }}" class="w-full h-48 object-cover rounded-t-lg">
+            {% else %}
+            <div class="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
+                <span class="text-gray-400 text-4xl">📅</span>
+            </div>
+            {% endif %}
+
+            <div class="p-4">
+                <h2 class="text-xl font-semibold mb-2">{{ event.title }}</h2>
+
+                <div class="text-sm text-gray-600 mb-2">
+                    {% with next_date=event.get_next_occurrence %}
+                    {% if next_date %}
+                    <p>{{ next_date|date:"l, j F Y" }}</p>
+                    {% endif %}
+                    {% endwith %}
+                    <p>{{ event.start_time|time:"H:i" }} - {{ event.end_time|time:"H:i" }}</p>
+                </div>
+
+                <p class="text-sm text-gray-500 mb-2">{{ event.location }}</p>
+
+                {% if event.short_description %}
+                <p class="text-gray-700 text-sm line-clamp-2">{{ event.short_description }}</p>
+                {% endif %}
+
+                {% if event.organizing_team %}
+                <p class="text-xs text-gray-400 mt-3">Organized by {{ event.organizing_team.name }}</p>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-600">No upcoming events at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

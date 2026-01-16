@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.django-cms.org)",
+      "WebFetch(domain:django-recurrence.readthedocs.io)"
+    ]
+  }
+}

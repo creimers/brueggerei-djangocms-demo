@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load easy_thumbnails_tags %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <a href="{% url 'events:event_list' %}" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Events</a>
+
+    <article class="bg-white rounded-lg shadow p-6 mt-4">
+        {% if event.image %}
+        <img src="{% thumbnail event.image 1200x400 crop %}" alt="{{ event.title }}" class="w-full h-64 object-cover rounded-lg mb-6">
+        {% endif %}
+
+        <h1 class="text-3xl font-bold mb-4">{{ event.title }}</h1>
+
+        <div class="flex flex-wrap gap-6 mb-6 text-gray-600">
+            <div>
+                <p class="font-semibold">Next Date</p>
+                {% with next_date=event.get_next_occurrence %}
+                {% if next_date %}
+                <p>{{ next_date|date:"l, j F Y" }}</p>
+                {% else %}
+                <p>No upcoming dates</p>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div>
+                <p class="font-semibold">Time</p>
+                <p>{{ event.start_time|time:"H:i" }} - {{ event.end_time|time:"H:i" }}</p>
+            </div>
+            <div>
+                <p class="font-semibold">Location</p>
+                <p>{{ event.location }}</p>
+            </div>
+            <div>
+                <p class="font-semibold">Schedule</p>
+                <p>{{ event.recurrences }}</p>
+            </div>
+        </div>
+
+        {% if event.organizing_team or event.organizing_user %}
+        <div class="mb-6 text-gray-600">
+            <p class="font-semibold">Organized by</p>
+            <p>
+                {% if event.organizing_team %}{{ event.organizing_team.name }}{% endif %}
+                {% if event.organizing_team and event.organizing_user %} &middot; {% endif %}
+                {% if event.organizing_user %}{{ event.organizing_user.get_full_name|default:event.organizing_user.username }}{% endif %}
+            </p>
+        </div>
+        {% endif %}
+
+        {% if event.short_description %}
+        <p class="text-lg text-gray-700 mb-6">{{ event.short_description }}</p>
+        {% endif %}
+
+        {% if event.full_description %}
+        <div class="prose max-w-none">
+            {{ event.full_description|linebreaks }}
+        </div>
+        {% endif %}
+
+    </article>
+</div>
+{% endblock %}

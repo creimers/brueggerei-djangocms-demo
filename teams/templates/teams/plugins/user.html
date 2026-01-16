@@ -1,0 +1,20 @@
+{% load easy_thumbnails_tags %}
+
+<div class="bg-white p-4 rounded-lg shadow">
+    <div class="flex items-start gap-4">
+        {% if user_profile.image %}
+        <img src="{% thumbnail user_profile.image 128x128 crop %}" alt="{{ user_profile }}" class="w-20 h-20 rounded-full object-cover flex-shrink-0">
+        {% else %}
+        <div class="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+            <span class="text-gray-600 text-2xl">{{ user_profile.user.first_name|slice:":1" }}{{ user_profile.user.last_name|slice:":1" }}</span>
+        </div>
+        {% endif %}
+
+        <div>
+            <h3 class="text-lg font-semibold">{{ user_profile.user.get_full_name|default:user_profile.user.username }}</h3>
+            {% if user_profile.short_bio %}
+            <p class="text-gray-600 mt-1">{{ user_profile.short_bio }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

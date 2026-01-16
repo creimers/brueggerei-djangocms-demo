@@ -1,0 +1,40 @@
+{% load easy_thumbnails_tags %}
+
+<div class="bg-white p-6 rounded-lg shadow">
+    {% if team.image %}
+    <img src="{% thumbnail team.image 800x400 crop %}" alt="{{ team.name }}" class="w-full h-48 object-cover rounded-lg mb-4">
+    {% endif %}
+
+    <h2 class="text-2xl font-bold mb-2">{{ team.name }}</h2>
+
+    {% if team.description %}
+    <p class="text-gray-600 mb-4">{{ team.description }}</p>
+    {% endif %}
+
+    {% if team_leads %}
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-3">Team Leads</h3>
+        <div class="flex flex-wrap gap-4">
+            {% for lead in team_leads %}
+            <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                {% if lead.profile.image %}
+                <img src="{% thumbnail lead.profile.image 64x64 crop %}" alt="{{ lead.get_full_name }}" class="w-12 h-12 rounded-full object-cover">
+                {% else %}
+                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+                    <span class="text-gray-600 text-lg">{{ lead.first_name|slice:":1" }}{{ lead.last_name|slice:":1" }}</span>
+                </div>
+                {% endif %}
+                <div>
+                    <p class="font-medium">{{ lead.get_full_name|default:lead.username }}</p>
+                    {% if lead.profile.telephone %}
+                    <p class="text-sm text-gray-500">{{ lead.profile.telephone }}</p>
+                    {% elif lead.email %}
+                    <p class="text-sm text-gray-500">{{ lead.email }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

@@ -75,7 +75,15 @@ INSTALLED_APPS = [
     "djangocms_frontend.contrib.navigation",
     "djangocms_frontend.contrib.tabs",
     "djangocms_frontend.contrib.utilities",
+    "tailwind",
+    'theme',
+    "recurrence",
+    # Local apps
+    "teams",
+    "events",
 ]
+
+TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -163,10 +171,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "de"
 
 LANGUAGES = [
-    ("en", _("English")),
+    ("de", _("German")),
     # Add additional languages here
 ]
 
