@@ -11,12 +11,19 @@ STORAGES = {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "location": "media",
+            "signature_version": "s3v4",
+            "default_acl": None,
+            "region_name": "auto",
         },
     },
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "location": "static",
+            "signature_version": "s3v4",
+            "default_acl": None,
+            "region_name": "auto",
+            "querystring_auth": False,  # No signed URLs for static files
         },
     },
 }
