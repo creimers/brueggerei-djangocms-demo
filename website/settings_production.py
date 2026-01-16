@@ -5,7 +5,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["brueggerei.superservice-international.com"]
 
 # WhiteNoise for static files
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+# MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -17,15 +17,15 @@ STORAGES = {
         },
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         # "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        # "OPTIONS": {
-        #     "location": "static",
-        #     "signature_version": "s3v4",
-        #     "default_acl": None,
-        #     "region_name": "auto",
-        #     "querystring_auth": False,  # No signed URLs for static files
-        # },
+        "OPTIONS": {
+            "location": "static",
+            # "signature_version": "s3v4",
+            # "default_acl": None,
+            # "region_name": "auto",
+            # "querystring_auth": False,  # No signed URLs for static files
+        },
     },
 }
 
@@ -34,10 +34,11 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "")
+AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 
 CSRF_TRUSTED_ORIGINS = [
     "https://brueggerei.superservice-international.com",
 ]
 
-STATIC_ROOT = str(BASE_DIR / "staticfiles")
+# STATIC_ROOT = str(BASE_DIR / "staticfiles")
