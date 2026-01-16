@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "tailwind",
     'theme',
     "recurrence",
+    'storages',
     # Local apps
     "teams",
     "events",

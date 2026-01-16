@@ -2,7 +2,7 @@ services:
   web:
     build:
       context: .
-    command: uvicorn website.asgi:application --host 0.0.0.0 --port 8000
+    command: sh start.sh
     env_file: .env
     networks:
       - web
