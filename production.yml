@@ -6,6 +6,7 @@ services:
     env_file: .env
     networks:
       - web
+      - backend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.app1.rule=Host(`brueggerei.superservice-international.com`)"
@@ -28,11 +29,15 @@ services:
       - ./backups/:/db_backups/
       - postgres_data:/var/lib/postgresql/data
       - postgres_backup:/backups
-  
+    networks:
+      - backend
+
   memcached:
     env_file: .env
     image: memcached
     restart: always
+    networks:
+      - backend
 
 volumes:
   postgres_data: {}
@@ -41,3 +46,4 @@ volumes:
 networks:
   web:
     external: true
+  backend:
