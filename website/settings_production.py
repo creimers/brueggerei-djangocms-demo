@@ -18,7 +18,7 @@ STORAGES = {
     },
     "staticfiles": {
         # "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        # "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": {
             "location": "static",
             # "signature_version": "s3v4",
