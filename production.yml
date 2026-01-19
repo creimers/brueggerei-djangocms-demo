@@ -24,6 +24,7 @@ services:
     depends_on:
       - postgres
       - memcached
+      - nginx
 
   nginx:
     image: nginx:alpine
